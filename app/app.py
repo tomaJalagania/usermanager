@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,jsonify
 from mymodels import User,Base
 from db import create_eng,add_user
 
@@ -12,10 +12,19 @@ eng = create_eng(app)
 def home():
     
     
-    user = User(Username="maka",Email="maka.cucqiridze@gmail.com")
-    add_user(user,eng)
-    return "success"
-
+    user = User(Username="maka",Email="jassdsasssm@gmail.com")
+    
+    res = add_user(user,eng)
+    if res["msg"] == "success":
+        data = {
+           "msg":"success",
+            "Username":res["user"].Username
+        }
+    else:
+        data = {
+            "msg":"email is exit"
+        }
+    return jsonify(data)
 if __name__ == "__main__":
     Base.metadata.create_all(bind=eng)
     app.run(host="0.0.0.0")
