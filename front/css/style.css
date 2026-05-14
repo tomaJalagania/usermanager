@@ -8,6 +8,7 @@
     margin: auto;
     background-color: beige;
     height:  100vh;
+    padding: 5px 10px;
 }
 .users {
     width: 100%;
@@ -23,4 +24,29 @@
 #tbd tr {
     background-color: rgb(238, 238, 238);
     color: black;
+}
+.user_form {
+    width: 50%;
+    padding: 20px 0;
+}
+.user_form form {
+    display: flex;
+    justify-content: space-between;
+}
+.form-input {
+    display: flex;
+    align-items: center;
+}
+.form-input input {
+    padding: 5px 0;
+    outline: none;
+    margin-left: 10px;
+    border: 1px solid #bcbaba;
+    border-radius: 5px;
+}
+.form-input button {
+    padding: 5px 10px;
+    border: 1px solid #bcbaba;
+     border-radius: 5px;
+     cursor: pointer;
 }
