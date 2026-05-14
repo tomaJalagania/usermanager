@@ -1,22 +1,24 @@
 from flask import Flask,jsonify
+from flask_cors import CORS
 from mymodels import User,Base
 from db import DB
 
 
 app = Flask(__name__)
+CORS(app=app)
 #app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://user:12345678@localhost/users"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 db = DB(dburi=app.config.get("SQLALCHEMY_DATABASE_URI"),app=app)
 
 
-@app.route("/")
+@app.route("/users")
 def home():
    res = db.get_all_users()
    return jsonify(res)
 
-@app.route("/add/<user>")
-def add_user(user):
-     user = User(Username="toma",Email="toma@gmail.com")
+@app.route("/add")
+def add_user():
+     user = User(Username="maka",Email="mcucqiridze@gmail.com")
      db.create_eng()
      db.add_user(user=user)
      return "success"
