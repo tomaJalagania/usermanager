@@ -16,4 +16,26 @@ window.addEventListener("load",async e=>{
         tr.appendChild(tde)
         tbody.appendChild(tr)
     })
+
+   
+}) 
+let btn = document.getElementById("btn")
+
+btn.addEventListener("click", async e=>{
+        e.preventDefault()
+        let uname = document.getElementById("name")
+        let email = document.getElementById("email")
+        if(email.value == ""|| uname.value=="") {
+            window.alert("inputs are empty")
+            return
+        }
+        let res = await fetch("http://localhost:5000/add",{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({"Username":uname.value,"Email":email.value})
+        })
+        obj = await res.json()
+        console.log(obj)
 })

@@ -1,4 +1,4 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,request
 from flask_cors import CORS
 from mymodels import User,Base
 from db import DB
@@ -16,12 +16,12 @@ def home():
    res = db.get_all_users()
    return jsonify(res)
 
-@app.route("/add")
+@app.route("/add",methods=["POST"])
 def add_user():
-     user = User(Username="maka",Email="mcucqiridze@gmail.com")
-     db.create_eng()
-     db.add_user(user=user)
-     return "success"
+     data = request.get_json()
+     user = User(Username=data["Username"],Email=data["Email"])
+     res = db.add_user(user=user)
+     return jsonify(res)
 if __name__ == "__main__":
     
     app.run(host="0.0.0.0",debug=True)
