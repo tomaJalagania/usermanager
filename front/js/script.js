@@ -37,5 +37,6 @@ btn.addEventListener("click", async e=>{
             body: JSON.stringify({"Username":uname.value,"Email":email.value})
         })
         obj = await res.json()
-        console.log(obj)
+        
+        obj.error? window.alert(obj.error):""
 })
