@@ -35,3 +35,13 @@ class DB:
           except IntegrityError as e:
                pass
      #===================================================
+    def delete_user(self,id):
+          try:
+               with Session(self.engine) as session:
+                    user = session.get(User,id)
+                    if user:
+                         session.delete(user)
+                         session.commit()
+                         return {"msg":f"the user {user.Username} => {user.Email}  was deleted successful"}
+          except IntegrityError as e:
+               pass

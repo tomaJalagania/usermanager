@@ -22,6 +22,16 @@ def add_user():
      user = User(Username=data["Username"],Email=data["Email"])
      res = db.add_user(user=user)
      return jsonify(res)
+
+
+@app.route("/del",methods=["POST"])
+def delete_user():
+    req = request.get_json()
+    id = req["id"]
+    res = db.delete_user(id)
+    return jsonify(res)
+
+
 if __name__ == "__main__":
     
     app.run(host="0.0.0.0",debug=True)

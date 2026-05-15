@@ -10,10 +10,13 @@ window.addEventListener("load",async e=>{
         let tr = document.createElement("tr")
         let tdn = document.createElement("td")
         let tde = document.createElement("td")
+        let tdid = document.createElement("td")
         tdn.textContent = user.Username
         tde.textContent = user.Email
+        tdid.innerHTML = `<button data-id=${user.id} onclick="deleteuser(this)">Delete</button>`
         tr.appendChild(tdn)
         tr.appendChild(tde)
+        tr.appendChild(tdid)
         tbody.appendChild(tr)
     })
 
@@ -40,3 +43,18 @@ btn.addEventListener("click", async e=>{
         
         obj.error? window.alert(obj.error):""
 })
+
+async function deleteuser(e) {
+    let btn = e
+        
+        let res = await fetch("http://localhost:5000/del",{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({"id": btn.dataset["id"]})
+        })
+        obj = await res.json()
+        window.alert(obj.msg)
+        //obj.error? window.alert(obj.error):""
+}
