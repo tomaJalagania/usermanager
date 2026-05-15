@@ -1,8 +1,6 @@
 services:
   www:
-    build: 
-      context: .
-      dockerfile: nginx/Dockerfile
+    image: tjalagania/usermanager-www:v1
     container_name: $WWW_NAME
     environment:
       WWW_NAME: $WWW_NAME
@@ -14,20 +12,18 @@ services:
       - back
       - db
   back:
-    build: 
-      context: .
-      dockerfile: app/Dockerfile
+    image: tjalagania/usermanager-back:v1
     container_name: $APP_NAME
     environment:
         POSTGRES_USER: $POSTGRES_USER
         POSTGRES_PASSWORD: $POSTGRES_PASSWORD
         POSTGRES_DB: $POSTGRES_DB
         POSTGRES_SERVER_NAME: $POSTGRES_SERVER_NAME
-    
-    #ports:
-    #  - 5000:5000
-    depends_on:
-      - db
+   
+    ports:
+      - 5000:5000
+    #depends_on:
+    #  - db
   db:
     image: postgres
     container_name: $POSTGRES_SERVER_NAME

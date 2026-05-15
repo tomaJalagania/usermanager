@@ -7,16 +7,16 @@ import os
 
 
 #================= Load VARIABLES ============================
-#POSTGRES_USER = os.getenv("POSTGRES_USER")
-#POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
-#POSTGRES_DB=os.getenv("POSTGRES_DB")
-#POSTGRES_HOST = os.getenv("POSTGRES_SERVER_NAME")
+POSTGRES_USER = os.getenv("POSTGRES_USER")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+POSTGRES_DB=os.getenv("POSTGRES_DB")
+POSTGRES_HOST = os.getenv("POSTGRES_SERVER_NAME")
 #=============================================================
 
 app = Flask(__name__)
 CORS(app=app)
-#app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql+psycopg2://user:{POSTGRES_PASSWORD}@{POSTGRES_HOST}/{POSTGRES_DB}"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql+psycopg2://user:{POSTGRES_PASSWORD}@{POSTGRES_HOST}/{POSTGRES_DB}"
+#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 db = DB(dburi=app.config.get("SQLALCHEMY_DATABASE_URI"),app=app)
 
 
