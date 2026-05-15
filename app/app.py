@@ -6,8 +6,8 @@ from db import DB
 
 app = Flask(__name__)
 CORS(app=app)
-#app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://user:12345678@localhost/users"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://user:12345678@localhost/users"
+#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 db = DB(dburi=app.config.get("SQLALCHEMY_DATABASE_URI"),app=app)
 
 

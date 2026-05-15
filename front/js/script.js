@@ -1,11 +1,15 @@
-window.addEventListener("load",async e=>{
+let btn = document.getElementById("btn")
+let tbody = document.getElementById("tbd")
+const curetnPage = window.location.href
+
+async function get_users(){
     let res = await fetch("http://localhost:5000/users")
     if(!res.ok) {
         throw new Error(res.statusText)
     }
     obj = JSON.parse(JSON.stringify(await res.json()))
     
-    let tbody = document.getElementById("tbd")
+    
     obj.forEach(user=>{
         let tr = document.createElement("tr")
         let tdn = document.createElement("td")
@@ -19,10 +23,13 @@ window.addEventListener("load",async e=>{
         tr.appendChild(tdid)
         tbody.appendChild(tr)
     })
-
+}
+window.addEventListener("load",async e=>{
+    
+       await get_users()
    
 }) 
-let btn = document.getElementById("btn")
+
 
 btn.addEventListener("click", async e=>{
         e.preventDefault()
@@ -42,6 +49,8 @@ btn.addEventListener("click", async e=>{
         obj = await res.json()
         
         obj.error? window.alert(obj.error):""
+        window.location.href = curetnPage
+        
 })
 
 async function deleteuser(e) {
@@ -57,4 +66,6 @@ async function deleteuser(e) {
         obj = await res.json()
         window.alert(obj.msg)
         //obj.error? window.alert(obj.error):""
+        window.location.href = curetnPage
+        
 }
