@@ -2,12 +2,21 @@ from flask import Flask,jsonify,request
 from flask_cors import CORS
 from mymodels import User,Base
 from db import DB
+import os
 
+
+
+#================= Load VARIABLES ============================
+#POSTGRES_USER = os.getenv("POSTGRES_USER")
+#POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+#POSTGRES_DB=os.getenv("POSTGRES_DB")
+#POSTGRES_HOST = os.getenv("POSTGRES_SERVER_NAME")
+#=============================================================
 
 app = Flask(__name__)
 CORS(app=app)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://user:12345678@localhost/users"
-#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+#app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql+psycopg2://user:{POSTGRES_PASSWORD}@{POSTGRES_HOST}/{POSTGRES_DB}"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 db = DB(dburi=app.config.get("SQLALCHEMY_DATABASE_URI"),app=app)
 
 
@@ -34,4 +43,4 @@ def delete_user():
 
 if __name__ == "__main__":
     
-    app.run(host="0.0.0.0",debug=True)
+    app.run(host="0.0.0.0")
