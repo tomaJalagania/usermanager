@@ -1,9 +1,9 @@
 services:
   www:
     image: tjalagania/usermanager-www:v1
-    container_name: $WWW_NAME
+    container_name: $WWW_CONTANER_NAME
     environment:
-      WWW_NAME: $WWW_NAME
+      SERVER_NAME: $SERVER_NAME
       APP_NAME: $APP_NAME
     
     ports:
@@ -22,8 +22,9 @@ services:
    
     ports:
       - 5000:5000
-    #depends_on:
-    #  - db
+    depends_on:
+      db:
+        condition: service_healthy
   db:
     image: postgres
     container_name: $POSTGRES_SERVER_NAME
@@ -32,6 +33,11 @@ services:
        POSTGRES_PASSWORD: $POSTGRES_PASSWORD
        POSTGRES_DB: $POSTGRES_DB
        PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - db-data:/var/lib/postgresql/data/pgdata
     
