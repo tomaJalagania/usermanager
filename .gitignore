@@ -1,2 +1,4 @@
 app/.venv/
 composeb/
+user.db
+app/user.db
